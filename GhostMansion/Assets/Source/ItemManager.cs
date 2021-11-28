@@ -37,10 +37,13 @@ public class ItemManager : Singleton
     {
         base.Awake();
 
+        Items = new Dictionary<ItemType, List<Item>>();
+
         // Instantiate item pools
         for (int index = 0; index < ItemPrefabAssets.Length; ++index)
         {
-            Items.Add(ItemPrefabAssets[index].Type, CreateItemPool(ItemPrefabAssets[index]));
+            List<Item> items = CreateItemPool(ItemPrefabAssets[index]);
+            Items.Add(ItemPrefabAssets[index].Type, items);
         }
     }
 

@@ -10,7 +10,17 @@ public class Item : MonoBehaviour
     // Item type
     public ItemType Type { get; private set; }
 
+    /**
+     * Unity events
+     */
+    private void OnMouseDown()
+    {
+        Debug.Log("OnMouseDown");
+    }
 
+    /**
+     * Public methods
+     */
     public virtual void Init(ItemData itemData)
     {
         Type = itemData.Type;
@@ -24,5 +34,10 @@ public class Item : MonoBehaviour
         {
             Debug.LogError("Error to initialize item.");
         }
+    }
+
+    public virtual void OnCombine()
+    {
+
     }
 }

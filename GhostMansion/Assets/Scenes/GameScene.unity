@@ -239,7 +239,7 @@ MonoBehaviour:
   ItemPrefab: {fileID: 7417813769711705759, guid: 8e2c9543e3045ca4c9cbe572dcc426a9, type: 3}
   ItemPrefabAssets:
   - Type: 0
-    SpriteAsset: {fileID: 0}
+    SpriteAsset: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &808330098
 Transform:
   m_ObjectHideFlags: 0
