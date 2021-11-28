@@ -5,7 +5,7 @@ using UnityEngine;
 public enum ItemType
 {
     Spider, 
-    Monster, 
+    Bat, 
     Skull, 
     Ghost
 }
@@ -15,6 +15,7 @@ public class ItemData
 {
     public ItemType Type;
     public Sprite SpriteAsset;
+    public Color SpriteColor = Color.white;
 }
 
 public class ItemManager : Singleton
@@ -55,7 +56,7 @@ public class ItemManager : Singleton
         List<Item> items = Items[type];
         for (int index = 0; index < items.Count; ++index)
         {
-            if (items[index].Active)
+            if (!items[index].Active)
             {
                 return items[index];
             }

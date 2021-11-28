@@ -24,11 +24,13 @@ public class Item : MonoBehaviour
     public virtual void Init(ItemData itemData)
     {
         Type = itemData.Type;
+        Active = false;
 
         SpriteRenderer spriteComponent = GetComponent<SpriteRenderer>();
         if (spriteComponent)
         {
             spriteComponent.sprite = itemData.SpriteAsset;
+            spriteComponent.color = itemData.SpriteColor;
         }
         else
         {
