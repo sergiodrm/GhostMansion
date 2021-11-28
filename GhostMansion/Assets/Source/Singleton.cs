@@ -10,7 +10,7 @@ public class Singleton: MonoBehaviour
         private set;
     }
 
-    public void Awake()
+    public virtual void Awake()
     {
         Instance = this;
     }

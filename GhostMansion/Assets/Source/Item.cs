@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private SpriteRenderer SpriteComponent;
+    // Item pool flag
+    public bool Active = false;
 
-    public void Awake()
+    // Item type
+    public ItemType Type { get; private set; }
+
+
+    public virtual void Init(ItemData itemData)
     {
-        SpriteComponent = GetComponent<SpriteRenderer>();
+        Type = itemData.Type;
+
+        SpriteRenderer spriteComponent = GetComponent<SpriteRenderer>();
+        if (spriteComponent)
+        {
+            spriteComponent.sprite = itemData.SpriteAsset;
+        }
+        else
+        {
+            Debug.LogError("Error to initialize item.");
+        }
     }
 }

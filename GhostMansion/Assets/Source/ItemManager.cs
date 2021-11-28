@@ -4,35 +4,81 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Spider,
-    Ghost,
-    Monster,
-    Skull
+    Spider, 
+    Monster, 
+    Skull, 
+    Ghost
 }
 
 [System.Serializable]
-public class ItemSpecification
+public class ItemData
 {
     public ItemType Type;
-    public Sprite Image;
+    public Sprite SpriteAsset;
 }
 
 public class ItemManager : Singleton
 {
-    // An array to store the different types of items with their properties.
-    public ItemSpecification[] ItemData;
+    /**
+     * Properties
+     */
+    [Range(0, 100)]
+    public int InitialPoolSize = 20;
+    
+    public GameObject ItemPrefab;
+    public ItemData[] ItemPrefabAssets;
 
-    private List<Item> Items;
+    private Dictionary<ItemType, List<Item>> Items;
 
-    public Sprite GetSpriteFromType(ItemType type)
+    /**
+     * Unity events
+     */
+    public override void Awake()
     {
-        for (int index = 0; index < ItemData.Length; ++index)
+        base.Awake();
+
+        // Instantiate item pools
+        for (int index = 0; index < ItemPrefabAssets.Length; ++index)
         {
-            if (ItemData[index].Type == type)
+            Items.Add(ItemPrefabAssets[index].Type, CreateItemPool(ItemPrefabAssets[index]));
+        }
+    }
+
+    /**
+     * Public methods
+     */
+    public Item ActivateItem(ItemType type)
+    {
+        List<Item> items = Items[type];
+        for (int index = 0; index < items.Count; ++index)
+        {
+            if (items[index].Active)
             {
-                return ItemData[index].Image;
+                return items[index];
             }
         }
         return null;
     }
+
+    public void DeactiveItem(Item item)
+    {
+        item.Active = false;
+    }
+
+    /**
+     * Private methods
+     */
+    private List<Item> CreateItemPool(ItemData itemData)
+    {
+        List<Item> items = new List<Item>();
+        for (int index = 0; index < InitialPoolSize; ++index)
+        {
+            GameObject newItem = Instantiate(ItemPrefab);
+            Item item = newItem.GetComponent<Item>();
+            item.Init(itemData);
+            items.Add(item);
+        }
+        return items;
+    }
+
 }
