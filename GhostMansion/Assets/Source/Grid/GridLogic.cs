@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class Grid
 {
-    public int m_width { get; private set; }
-    public int m_height { get; private set; }
-    public int[] m_data { get; private set; }
+    private int m_width;
+    private int m_height;
+    private int m_size;
+    private int[] m_data;
 
     public Grid(int width, int height)
     {
         m_width = width;
         m_height = height;
-        m_data = new int[width * height];
+        m_size = width * height;
+        m_data = new int[m_size];
     }
 
-    public int GetSize()
+    public int Size()
     {
-        return m_width * m_height;
+        return m_size;
     }
 
     public int Get(int index)
@@ -44,12 +46,12 @@ public class Grid
 
     public bool IsValid(int index)
     {
-        return index < GetSize();
+        return index < Size();
     }
 
     public bool IsValid(int row, int column)
     {
-        return CoordToIndex(row, column) < GetSize();
+        return CoordToIndex(row, column) < Size();
     }
 
     public int CoordToIndex(int row, int column)
