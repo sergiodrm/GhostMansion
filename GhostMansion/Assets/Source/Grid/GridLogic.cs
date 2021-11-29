@@ -6,13 +6,18 @@ public class Grid
 {
     public int m_width { get; private set; }
     public int m_height { get; private set; }
-    public List<int> m_data { get; private set; }
+    public int[] m_data { get; private set; }
 
     public Grid(int width, int height)
     {
         m_width = width;
         m_height = height;
-        m_data = new List<int>(width * height);
+        m_data = new int[width * height];
+    }
+
+    public int GetSize()
+    {
+        return m_width * m_height;
     }
 
     public int Get(int index)
@@ -35,6 +40,16 @@ public class Grid
     {
         int index = CoordToIndex(row, column);
         Set(index, value);
+    }
+
+    public bool IsValid(int index)
+    {
+        return index < GetSize();
+    }
+
+    public bool IsValid(int row, int column)
+    {
+        return CoordToIndex(row, column) < GetSize();
     }
 
     public int CoordToIndex(int row, int column)
