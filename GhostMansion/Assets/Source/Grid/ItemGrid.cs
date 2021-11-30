@@ -82,6 +82,12 @@ public class ItemGrid : MonoBehaviour
 
     private void Start()
     {
+        // Get transform
+        m_transformComponent = GetComponent<Transform>();
+
+        // Create grid
+        m_grid = new GridContainer<Item>(m_width, m_height);
+
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Rect spriteRect = spriteRenderer.sprite.rect;
         float spritePixelsPerUnit = spriteRenderer.sprite.pixelsPerUnit;
@@ -90,18 +96,9 @@ public class ItemGrid : MonoBehaviour
         m_spriteWorldHeight = spriteRect.height / spritePixelsPerUnit;
         Vector2 rectSize = new Vector2(m_spriteWorldWidth / (float)m_width, m_spriteWorldHeight / (float)m_height);
 
-        float spriteWidth = m_itemSprite.rect.width / m_itemSprite.pixelsPerUnit;
-        float spriteHeight = m_itemSprite.rect.height / m_itemSprite.pixelsPerUnit;
-
-        // Get transform
-        m_transformComponent = GetComponent<Transform>();
-
-        // Create grid
-        m_grid = new GridContainer<Item>(m_width, m_height);
         
-        Vector3 worldOffset = m_transformComponent.position;
-        worldOffset -= new Vector3(m_spriteWorldWidth * 0.5f, m_spriteWorldHeight * 0.5f, 0.0f);
-        worldOffset += new Vector3(rectSize.x, rectSize.y, 0.0f);
+        Vector3 worldOffset = new Vector3(m_spriteWorldWidth * -0.5f, m_spriteWorldHeight * -0.5f, 0.0f);
+        worldOffset += new Vector3(rectSize.x * 0.5f, rectSize.y * 0.5f, 0.0f);
         for (int row = 0; row < m_height; ++row)
         {
             for (int col = 0; col < m_width; ++col)
@@ -114,9 +111,17 @@ public class ItemGrid : MonoBehaviour
                 m_grid.Set(row, col, item);
             }
         }
-        Debug.Log("World offset: " + worldOffset);
-        Debug.Log("Item size in grid: " + rectSize);
+
+        string text = "World offset: " + worldOffset + "\n" +
+            "Rect size: " + rectSize + "\n" +
+            "Board world size: " + new Vector2(m_spriteWorldWidth, m_spriteWorldHeight);
+        DebugText.s_instance.m_textToPrint = text;
     }
 
+    private Vector3 ProjectCoordToWorld(int row, int col)
+    {
+        Vector2 rectSize = new Vector2(m_spriteWorldWidth / (float)m_width, m_spriteWorldHeight / (float)m_height);
+        return new Vector3(0.0f, 0.0f);
+    }
 
 }

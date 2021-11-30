@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.36445352, g: 0.37680966, b: 0.3962264, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 9.41
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -236,19 +236,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialPoolSize: 20
+  m_itemsParentGameObject: {fileID: 2109158400}
   ItemPrefab: {fileID: 7417813769711705759, guid: 8e2c9543e3045ca4c9cbe572dcc426a9, type: 3}
   ItemPrefabAssets:
   - Type: 0
-    SpriteAsset: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    SpriteAsset: {fileID: 21300000, guid: 3a6e76555f9ce80418f7d4d077f24f7a, type: 3}
     SpriteColor: {r: 1, g: 0.3254717, b: 0.3254717, a: 1}
   - Type: 1
-    SpriteAsset: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    SpriteAsset: {fileID: 21300000, guid: 3a6e76555f9ce80418f7d4d077f24f7a, type: 3}
     SpriteColor: {r: 0, g: 0, b: 0, a: 1}
   - Type: 2
-    SpriteAsset: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    SpriteAsset: {fileID: 21300000, guid: 3a6e76555f9ce80418f7d4d077f24f7a, type: 3}
     SpriteColor: {r: 0.098039225, g: 0.29411766, b: 0.40000004, a: 1}
   - Type: 3
-    SpriteAsset: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    SpriteAsset: {fileID: 21300000, guid: 3a6e76555f9ce80418f7d4d077f24f7a, type: 3}
     SpriteColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &808330098
 Transform:
@@ -581,7 +582,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b268620441389694d868148cda592eee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c713e5e8ad8b4184f9d46ce1fd927a26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -604,9 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4c0b5bfaedc204c9e52b722742a5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_width: 5
-  m_height: 5
+  m_width: 6
+  m_height: 6
   m_itemManager: {fileID: 808330097}
+  m_itemSprite: {fileID: 21300000, guid: 3a6e76555f9ce80418f7d4d077f24f7a, type: 3}
 --- !u!4 &2109158404
 Transform:
   m_ObjectHideFlags: 0
@@ -615,7 +617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109158400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.71, y: 0.01, z: 0}
+  m_LocalPosition: {x: 4.03, y: -0.08, z: 0}
   m_LocalScale: {x: 0.6814, y: 0.6814, z: 0.6814}
   m_Children: []
   m_Father: {fileID: 0}
