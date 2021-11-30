@@ -91,7 +91,10 @@ public class ItemManager : Singleton
             item.Init(itemData);
             item.Deactivate();
             items.Add(item);
-            newItem.transform.parent = m_itemsParentGameObject.transform;
+            if (m_itemsParentGameObject)
+            {
+                newItem.transform.parent = m_itemsParentGameObject.transform; 
+            }
         }
         return items;
     }

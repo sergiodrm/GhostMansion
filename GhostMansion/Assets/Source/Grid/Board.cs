@@ -64,13 +64,12 @@ public class GridContainer<T>
     }
 }
 
-public class ItemGrid : MonoBehaviour
+public class Board : MonoBehaviour
 {
     private GridContainer<Item> m_grid;
     private Transform m_transformComponent;
 
-    private float m_spriteWorldWidth;
-    private float m_spriteWorldHeight;
+    private Vector2 m_cellSize;
 
     [Header("Grid settings")]
     [Min(1)]
@@ -88,40 +87,34 @@ public class ItemGrid : MonoBehaviour
         // Create grid
         m_grid = new GridContainer<Item>(m_width, m_height);
 
+        // Calculate cell size in world space
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Rect spriteRect = spriteRenderer.sprite.rect;
         float spritePixelsPerUnit = spriteRenderer.sprite.pixelsPerUnit;
+        float spriteWorldWidth = spriteRect.width / spritePixelsPerUnit;
+        float spriteWorldHeight = spriteRect.height / spritePixelsPerUnit;
+        m_cellSize = new Vector2(spriteWorldWidth / (float)m_width, spriteWorldHeight / (float)m_height);
 
-        m_spriteWorldWidth = spriteRect.width / spritePixelsPerUnit;
-        m_spriteWorldHeight = spriteRect.height / spritePixelsPerUnit;
-        Vector2 rectSize = new Vector2(m_spriteWorldWidth / (float)m_width, m_spriteWorldHeight / (float)m_height);
-
-        
-        Vector3 worldOffset = new Vector3(m_spriteWorldWidth * -0.5f, m_spriteWorldHeight * -0.5f, 0.0f);
-        worldOffset += new Vector3(rectSize.x * 0.5f, rectSize.y * 0.5f, 0.0f);
+        // Fill the board
         for (int row = 0; row < m_height; ++row)
         {
             for (int col = 0; col < m_width; ++col)
             {
                 Item item = m_itemManager.ActivateRandomItem();
                 GameObject itemObject = item.gameObject;
-                Vector3 position = new Vector3((float)col * rectSize.x, (float)row * rectSize.y);
-                position += worldOffset;
-                itemObject.transform.localPosition = position;
+                itemObject.transform.localPosition = ProjectCoordToWorld(row, col);
                 m_grid.Set(row, col, item);
             }
         }
-
-        string text = "World offset: " + worldOffset + "\n" +
-            "Rect size: " + rectSize + "\n" +
-            "Board world size: " + new Vector2(m_spriteWorldWidth, m_spriteWorldHeight);
-        DebugText.s_instance.m_textToPrint = text;
     }
 
     private Vector3 ProjectCoordToWorld(int row, int col)
     {
-        Vector2 rectSize = new Vector2(m_spriteWorldWidth / (float)m_width, m_spriteWorldHeight / (float)m_height);
-        return new Vector3(0.0f, 0.0f);
+        Vector3 worldOffset = m_cellSize * 0.5f;
+        worldOffset -= new Vector3(m_cellSize.x * m_width * 0.5f, m_cellSize.y * m_height * 0.5f);
+        Vector3 worldPosition = new Vector3((float)col * m_cellSize.x, (float)row * m_cellSize.y);
+        worldPosition += worldOffset;
+        return worldPosition;
     }
 
 }
