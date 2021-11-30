@@ -7,7 +7,8 @@ public enum ItemType
     Spider, 
     Bat, 
     Skull, 
-    Ghost
+    Ghost,
+    Max
 }
 
 [System.Serializable]
@@ -26,6 +27,7 @@ public class ItemManager : Singleton
     [Range(0, 100)]
     public int InitialPoolSize = 20;
     
+    public GameObject m_itemsParentGameObject;
     public GameObject ItemPrefab;
     public ItemData[] ItemPrefabAssets;
 
@@ -56,17 +58,24 @@ public class ItemManager : Singleton
         List<Item> items = Items[type];
         for (int index = 0; index < items.Count; ++index)
         {
-            if (!items[index].Active)
+            if (!items[index].IsActive())
             {
+                items[index].Activate();
                 return items[index];
             }
         }
         return null;
     }
 
+    public Item ActivateRandomItem()
+    {
+        ItemType type = (ItemType)Random.Range(0, (int)ItemType.Max);
+        return ActivateItem(type);
+    }
+
     public void DeactiveItem(Item item)
     {
-        item.Active = false;
+        item.Deactivate();
     }
 
     /**
@@ -80,7 +89,9 @@ public class ItemManager : Singleton
             GameObject newItem = Instantiate(ItemPrefab);
             Item item = newItem.GetComponent<Item>();
             item.Init(itemData);
+            item.Deactivate();
             items.Add(item);
+            newItem.transform.parent = m_itemsParentGameObject.transform;
         }
         return items;
     }

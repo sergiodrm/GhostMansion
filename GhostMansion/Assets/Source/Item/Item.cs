@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // Item pool flag
-    public bool Active = false;
 
     // Item type
     public ItemType Type { get; private set; }
@@ -24,7 +22,6 @@ public class Item : MonoBehaviour
     public virtual void Init(ItemData itemData)
     {
         Type = itemData.Type;
-        Active = false;
 
         SpriteRenderer spriteComponent = GetComponent<SpriteRenderer>();
         if (spriteComponent)
@@ -38,6 +35,21 @@ public class Item : MonoBehaviour
         }
     }
 
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public bool IsActive()
+    {
+        return gameObject.activeInHierarchy;
+    }
+    
     public virtual void OnCombine()
     {
 
